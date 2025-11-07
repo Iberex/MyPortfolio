@@ -1,6 +1,7 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
 const pageTitle = "About Me";
-import '../styles/global.css';
 
 const identity = {
   firstName: "Sarah",
@@ -18,44 +19,27 @@ const goal = 3;
 const skillColor = "#fffff0";
 
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{pageTitle}</title>
-    <style define:vars={{skillColor}}>
-    h1 {
-        color: purple;
-        font-size: 4rem;
-    }
-    .skill {
-        color: var(--skillColor);
-        font-weight: bold;
-    }
-</style>
-  </head>
-  <body>
-    <a href="/">Home</a>
-    <a href="/about/">About</a>
-    <a href="/projects/">projects</a>
-    <h1>{pageTitle}</h1>
-    <h2>... and my new Astro site!</h2>
 
-        <p>Here are a few facts about me:</p>
-    <ul>
+<BaseLayout pageTitle={pageTitle}>
+  <style>
+    h1 { color: purple; font-size: 4rem; }
+    .skill { color: #fffff0; font-weight: bold; }
+  </style>
+
+  <h2>... and my new Astro site!</h2>
+
+  <p>Here are a few facts about me:</p>
+  <ul>
     <li>My name is {identity.firstName}.</li>
     <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
     {identity.hobbies.length >= 2 &&
-        <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
+      <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
     }
-    {happy && <p>I am happy to be learning Astro!</p>}
+  </ul>
 
-    {finished && <p>I finished this tutorial!</p>}
+  {happy && <p>I am happy to be learning Astro!</p>}
 
-    {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+  {finished && <p>I finished this tutorial!</p>}
 
-    </div>
-
-    </ul>
-  </body>
-</html>
+  {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+</BaseLayout>

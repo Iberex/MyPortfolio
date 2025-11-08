@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const tutorials = await getCollection('tutorials');
+---
+
+<BaseLayout pageTitle="Tutorials">
+  <h2>Alle tutorials</h2>
+  <ul>
+    {tutorials.map(tutorial => (
+      <li>
+        <a href={"/tutorials/" + tutorial.id}>{tutorial.data.title}</a>
+        <p>{tutorial.data.description}</p>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>

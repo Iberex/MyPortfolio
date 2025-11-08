@@ -1,0 +1,30 @@
+---
+import Markdown from "../../layouts/Markdown.astro";
+import { getCollection, render } from "astro:content";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects
+    .filter((project) => !!project.id)
+    .map((project) => ({
+      params: { ID: project.id },
+      props: { project },
+    }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const pageTitle = project.data.title;
+---
+
+<Markdown>
+  <div slot="top">
+    <a href="/projects">Projects</a>
+    <h1><span>{pageTitle}</span></h1>
+  </div>
+
+  <Content />
+
+  <div slot="sidebar">
+  </div>
+</Markdown>

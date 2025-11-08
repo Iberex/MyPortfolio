@@ -2,44 +2,24 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const pageTitle = "About Me";
-
 const identity = {
-  firstName: "Sarah",
-  country: "Canada",
-  occupation: "Technical Writer",
-  hobbies: ["photography", "birdwatching", "baseball"],
+  firstName: "Ibe",
+  country: "België",
+  occupation: "Student (Devine)",
+  hobbies: ["leiding", "bestuurslid"],
 };
-
-const skills = ["HTML", "CSS", "JavaScript", "React", "Astro", "Writing Docs"];
-
-const happy = true;
-const finished = false;
-const goal = 3;
-
-const skillColor = "#fffff0";
 
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <style>
-    h1 { color: purple; font-size: 4rem; }
-    .skill { color: #fffff0; font-weight: bold; }
-  </style>
-
-  <h2>... and my new Astro site!</h2>
-
-  <p>Here are a few facts about me:</p>
-  <ul>
-    <li>My name is {identity.firstName}.</li>
-    <li>I live in {identity.country} and I work as a {identity.occupation}.</li>
-    {identity.hobbies.length >= 2 &&
-      <li>Two of my hobbies are: {identity.hobbies[0]} and {identity.hobbies[1]}</li>
-    }
-  </ul>
-
-  {happy && <p>I am happy to be learning Astro!</p>}
-
-  {finished && <p>I finished this tutorial!</p>}
-
-  {goal === 3 ? <p>My goal is to finish in 3 days.</p> : <p>My goal is not 3 days.</p>}
+  <section class="about">
+    <p class="lead">Ik ben Ibe, 19 jaar oud. Ik woon in België en studeer Devine in Kortrijk.</p>
+    <p>Naast mijn studie ben ik actief als leiding en bestuurslid bij <strong>Speelplein Kwispeltje</strong> in Wichelen. Dat geeft mij ervaring in organisatie, samenwerken en verantwoordelijkheid opnemen.</p>
+    <ul class="facts">
+      <li><strong>Naam:</strong> {identity.firstName}</li>
+      <li><strong>Land:</strong> {identity.country}</li>
+      <li><strong>Rol:</strong> {identity.occupation}</li>
+      <li><strong>Hobby's:</strong> {identity.hobbies.join(', ')}</li>
+    </ul>
+  </section>
 </BaseLayout>

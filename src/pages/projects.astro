@@ -1,15 +1,25 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro'
-const modules = import.meta.glob('./projects/*.md', { eager: true });
-const allPosts = Object.entries(modules).map(([path, mod]) => ({
-  url: path.replace('./projects/', '/projects/').replace(/\.md$/, '/'),
-  frontmatter: (mod as any).frontmatter || {},
-}));
-const pageTitle = "My Astro Learning Blog";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+const pageTitle = "Projects";
+const projects: CollectionEntry<'projects'>[] = await getCollection(
+  'projects',
+  (entry: CollectionEntry<'projects'>) => !entry.data.draft
+);
 ---
+
 <BaseLayout pageTitle={pageTitle}>
-  <p>This is where I will post about my journey learning Astro.</p>
+  <p class="subtitle">
+    Dit zijn mijn projecten die ik tijdens mijn Devine-carrière heb gemaakt.
+  </p>
+
   <ul>
-    {allPosts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
+    {projects.map((p: CollectionEntry<'projects'>) => (
+  <li>
+        <a href={`/projects/${p.id}/`}>{p.data.title}</a>
+      </li>
+    ))}
   </ul>
 </BaseLayout>

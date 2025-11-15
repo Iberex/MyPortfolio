@@ -1,8 +1,53 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const pageTitle = "Welkom";
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
 ---
-<BaseLayout pageTitle={pageTitle}>
-  <h2>Welkom op mijn portfolio</h2>
-  <p>Geniet van het verkennen van mijn werk en ontdek mijn projecten, vaardigheden en achtergrond. Veel plezier!</p>
+
+<BaseLayout>
+  <main class="hero">
+    <h2 class="hero-top">Hello wOrLd,</h2>
+    <h2 class="hero-bottom">I'm ibE</h2>
+    <div class="hero-corner">DIGITAL CREATOR SINCE <span class="corner-year">2024</span></div>
+  </main>
+
+  <section class="intro">
+     <p>
+      Hey there! I’m Ibe Kimpe 💻, a digital creator based in Belgium 🇧🇪, Crafting everything from sharp visuals in Photoshop 🎨 to fresh builds in Visual Studio Code ⚡. I love shaping ideas into smooth, eye-catching digital work that feels good, works smart, and looks damn clean ✨!
+    </p>
+  </section>
+
+  <section class="projects">
+    <h2 class="projects-title">Projects From Ibe</h2>
+    <p class="projects-subtitle">Here are a few sneak peeks of recent projects</p>
+
+    <div class="project-grid">
+      {projects.map(project => (
+          <article class="project-card">
+            <a class="project-link" href={`/projects/${project.id}`}>
+              <h3 class="project-card-title">{project.data.title}</h3>
+              {project.data.image ? (
+                <img
+                  class="project-thumb"
+                  src={project.data.image}
+                  alt={project.data.title}
+                  decoding="async"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="project-thumb placeholder"></div>
+              )}
+
+              <div class="project-tags">
+                {project.data.tags?.map(tag => (
+                  <span class="project-tag">{tag}</span>
+                ))}
+              </div>
+
+            </a>
+          </article>
+      ))}
+    </div>
+  </section>
 </BaseLayout>
